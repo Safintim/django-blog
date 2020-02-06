@@ -1,6 +1,6 @@
-from django.views.generic import ListView, DetailView
+from django.views.generic import DetailView, ListView
 
-from blog.models import Post
+from blog.models import Post, Tag
 
 
 class PostListView(ListView):
@@ -9,3 +9,7 @@ class PostListView(ListView):
 
 class PostDetailView(DetailView):
     model = Post
+
+
+class TagListView(ListView):
+    model = Tag
