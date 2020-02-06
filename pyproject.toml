@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "django-blog"
+version = "0.1.0"
+description = ""
+authors = ["Timur Safin <timur@getgain.ru>"]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+django = "^2.2.9"
+
+[tool.poetry.dev-dependencies]
+wemake-python-styleguide = "^0.13.4"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
