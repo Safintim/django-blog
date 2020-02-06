@@ -14,7 +14,5 @@ __pycache__/
 .venv
 .idea
 .vscode
-static/
-templates/
 db.sqlite3
 *.yml
