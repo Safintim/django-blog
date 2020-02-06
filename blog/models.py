@@ -1,11 +1,25 @@
+from datetime import datetime
+
 from django.db import models
 from django.utils.text import slugify
-from datetime import datetime
+
 from accounts.models import User
 
-def generation_slug(string):
+
+def generation_slug(string: str, timestamp: float = 0) -> str:
+    """Generate unique slug by timestamp.
+
+    Args:
+        string: example - 'this best post'
+        timestamp: for unique slug
+
+    Returns:
+        return "this-best-post-1581015344"
+
+    """
     slug = slugify(string, allow_unicode=True)
-    timestamp = int(datetime.now().timestamp())
+    current_ts = int(datetime.now().timestamp())
+    timestamp = timestamp if timestamp else current_ts
     return f'{slug}-{timestamp}'
 
 
@@ -15,7 +29,11 @@ class Post(models.Model):
     text = models.TextField('Текст')
     tags = models.ManyToManyField('Tag', related_name='posts', blank=True)
     created_at = models.DateTimeField('Дата создания', auto_now_add=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Автор')
+    author = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        verbose_name='Автор',
+    )
 
     class Meta:
         verbose_name = 'Пост'
