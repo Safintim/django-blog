@@ -28,8 +28,8 @@ class Post(models.Model):
     title = models.CharField('Название', max_length=150, db_index=True)
     slug = models.SlugField('Slug', max_length=150, unique=True, blank=True)
     text = models.TextField('Текст')
-    tags = models.ManyToManyField('Tag', related_name='posts', blank=True)
     created_at = models.DateTimeField('Дата создания', auto_now_add=True)
+    tags = models.ManyToManyField('Tag', related_name='posts', blank=True)
     author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,

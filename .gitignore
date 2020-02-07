@@ -14,5 +14,6 @@ __pycache__/
 .venv
 .idea
 .vscode
+*/migrations/
 db.sqlite3
 *.yml

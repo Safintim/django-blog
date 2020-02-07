@@ -6,6 +6,7 @@ from blog.models import Post
 from blog.tests.common_fixtures import auto_login_user, create_user, test_password
 
 
+@pytest.mark.django_db
 def test_get_list_post(client):
     url = reverse('posts-list')
     response = client.get(url)
@@ -45,6 +46,7 @@ def test_create_post(auto_login_user):
     post = Post.objects.get(pk=1)
     assert post.author == user
     assert post.title == data['title']
+    assert Post.objects.count() == 1
 
 
 def test_get_list_tags(client):
