@@ -1,0 +1,14 @@
+<!-- Tag Widget -->
+<div class="card my-4">
+  <h5 class="card-header">Теги</h5>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-lg-12">
+        <p>
+          {% for tag in tags %}
+              <a href="{% url 'posts-list' %}?tag={{ tag.title }}">#{{ tag.title }}</a>
+          {% endfor %}
+        </p>
+    </div>
+  </div>
+</div>

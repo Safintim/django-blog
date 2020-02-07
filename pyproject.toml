@@ -7,6 +7,8 @@ authors = ["Timur Safin <timur@getgain.ru>"]
 [tool.poetry.dependencies]
 python = "^3.7"
 django = "^2.2.9"
+Pillow = "^7.0.0"
+django-filter = "^2.2.0"
 
 [tool.poetry.dev-dependencies]
 wemake-python-styleguide = "^0.13.4"

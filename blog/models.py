@@ -29,7 +29,7 @@ class Post(models.Model):
     title = models.CharField('Название', max_length=150, db_index=True)
     slug = models.SlugField('Slug', max_length=150, unique=True, blank=True)
     text = models.TextField('Текст')
-    image = models.ImageField('Изображение', upload_to=get_filepath)
+    image = models.ImageField('Изображение', upload_to=get_filepath, null=True, blank=True)
     created_at = models.DateTimeField('Дата создания', auto_now_add=True)
     tags = models.ManyToManyField('Tag', related_name='posts', blank=True)
     author = models.ForeignKey(
@@ -41,6 +41,7 @@ class Post(models.Model):
     class Meta:
         verbose_name = 'Пост'
         verbose_name_plural = 'Посты'
+        ordering = ['-created_at']
 
     def __str__(self):
         return f'{self.title}'
@@ -51,7 +52,7 @@ class Post(models.Model):
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse('posts-detail', kwargs={'pk': self.pk})
+        return reverse('posts-detail', kwargs={'slug': self.slug})
 
 
 class Tag(models.Model):

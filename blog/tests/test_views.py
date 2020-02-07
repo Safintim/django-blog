@@ -16,7 +16,7 @@ def test_get_list_post(client):
 @pytest.mark.django_db
 def test_get_detail_post(client):
     post = mixer.blend(Post)
-    url = reverse('posts-detail', kwargs={'pk': post.pk})
+    url = reverse('posts-detail', kwargs={'slug': post.slug})
     response = client.get(url)
     assert response.status_code == 200
 
@@ -47,9 +47,3 @@ def test_create_post(auto_login_user):
     assert post.author == user
     assert post.title == data['title']
     assert Post.objects.count() == 1
-
-
-def test_get_list_tags(client):
-    url = reverse('tags-list')
-    response = client.get(url)
-    assert response.status_code == 200

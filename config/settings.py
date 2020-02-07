@@ -19,7 +19,9 @@ INSTALLED_APPS = [
     'blog',
     'core',
 ]
-LIBS = []
+LIBS = [
+    'django_filters',
+]
 
 INSTALLED_APPS += LIBS
 
