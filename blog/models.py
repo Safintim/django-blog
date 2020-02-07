@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from django.db import models
+from django.urls import reverse
 from django.utils.text import slugify
 
 from accounts.models import User
@@ -46,6 +47,9 @@ class Post(models.Model):
         if self.id is None:
             self.slug = generation_slug(self.title)
         super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse('posts-detail', kwargs={'pk': self.pk})
 
 
 class Tag(models.Model):
