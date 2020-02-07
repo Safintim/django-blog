@@ -5,6 +5,7 @@ from django.urls import reverse
 from django.utils.text import slugify
 
 from accounts.models import User
+from core.utils import get_filepath
 
 
 def generation_slug(string: str, timestamp: float = 0) -> str:
@@ -28,6 +29,7 @@ class Post(models.Model):
     title = models.CharField('Название', max_length=150, db_index=True)
     slug = models.SlugField('Slug', max_length=150, unique=True, blank=True)
     text = models.TextField('Текст')
+    image = models.ImageField('Изображение', upload_to=get_filepath)
     created_at = models.DateTimeField('Дата создания', auto_now_add=True)
     tags = models.ManyToManyField('Tag', related_name='posts', blank=True)
     author = models.ForeignKey(
