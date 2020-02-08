@@ -110,6 +110,17 @@ version = "2.2.0"
 Django = ">=1.11"
 
 [[package]]
+category = "main"
+description = "Modern template for Django admin interface with improved functionality"
+name = "django-jet"
+optional = false
+python-versions = "*"
+version = "1.0.8"
+
+[package.dependencies]
+Django = "*"
+
+[[package]]
 category = "dev"
 description = "Docutils -- Python Documentation Utilities"
 name = "docutils"
@@ -884,7 +895,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools"]
 
 [metadata]
-content-hash = "5dfeb317f5e64efda8af3703c422a54109b305b2f61bc336c082506d6abb45fb"
+content-hash = "e0862304325650153ba9f51cb81359181eae74ce7f93d8506ba6c97a3ce639e6"
 python-versions = "^3.7"
 
 [metadata.files]
@@ -925,6 +936,9 @@ django = [
 django-filter = [
     {file = "django-filter-2.2.0.tar.gz", hash = "sha256:c3deb57f0dd7ff94d7dce52a047516822013e2b441bed472b722a317658cfd14"},
     {file = "django_filter-2.2.0-py3-none-any.whl", hash = "sha256:558c727bce3ffa89c4a7a0b13bc8976745d63e5fd576b3a9a851650ef11c401b"},
+]
+django-jet = [
+    {file = "django-jet-1.0.8.tar.gz", hash = "sha256:f521dc0873023afa198d2b57687e0593ee62022bd50fa59506dfce69b101cd9e"},
 ]
 docutils = [
     {file = "docutils-0.16-py2.py3-none-any.whl", hash = "sha256:0c5b78adfbf7762415433f5515cd5c9e762339e23369dbe8000d84a4bf4ab3af"},

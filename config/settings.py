@@ -9,6 +9,8 @@ DEBUG = os.getenv('DEBUG', 'true').lower() in ['yes', '1', 'true']
 ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
+    'jet.dashboard',
+    'jet',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
