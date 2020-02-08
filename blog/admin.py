@@ -1,20 +1,58 @@
 from django.contrib import admin
+from django import forms
+
+from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
 from blog.models import Post, Tag
 
 
+class PostAdminForm(forms.ModelForm):
+    text = forms.CharField(label='Текст', widget=CKEditorUploadingWidget())
+
+    class Meta:
+        model = Post
+        fields = '__all__'
+
+
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
+    form = PostAdminForm
     list_display = list_display_links = (
         'id',
         'author',
         'created_at',
         'title',
+        'get_image_html',
     )
 
-    search_fields = (
-        'title',
+    fieldsets = (
+        (None, {
+            'fields': (('title', 'slug'),)
+        }),
+        (None, {
+            'fields': (('image', 'get_image_html'),)
+        }),
+        (None, {
+            'fields': (('text', ),)
+        }),
+        ('Автор И теги', {
+            'classes': ('collapse', ),
+            'fields': (('created_at', 'author', 'tags', ),)
+        }),
     )
+
+    readonly_fields = ('created_at', 'get_image_html', )
+
+    search_fields = (
+        'author__email',
+        'title',
+        'text',
+        'slug'
+    )
+
+    list_filter = ('tags', )
+
+    save_on_top = True
 
 
 @admin.register(Tag)
@@ -26,4 +64,5 @@ class TagAdmin(admin.ModelAdmin):
 
     search_fields = (
         'title',
+        'slug',
     )

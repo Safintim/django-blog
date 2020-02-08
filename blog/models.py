@@ -3,6 +3,7 @@ from datetime import datetime
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
+from django.utils.safestring import mark_safe
 
 from accounts.models import User
 from core.utils import get_filepath
@@ -53,6 +54,12 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return reverse('posts-detail', kwargs={'slug': self.slug})
+
+    def get_image_html(self):
+        if self.image:
+            return mark_safe(f'<img src={self.image.url} width=100>')
+        return 'Не загружено'
+    get_image_html.short_description = 'Изображение'
 
 
 class Tag(models.Model):
