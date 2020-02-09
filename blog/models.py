@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from django.conf import settings
 from django.db import models
 from django.urls import reverse
 from django.utils.safestring import mark_safe
@@ -57,12 +58,16 @@ class Post(models.Model):
             self.slug = generation_slug(self.title)
         super().save(*args, **kwargs)
 
+    def get_image_absolute_url(self):
+        if self.image:
+            return f'{settings.HOST}{self.image.url}'
+
     def get_absolute_url(self):
         return reverse('posts-detail', kwargs={'slug': self.slug})
 
     def get_image_html(self):
         if self.image:
-            return mark_safe(f'<img src={self.image.url} width=100>')
+            return mark_safe(f'<img src={self.get_image_absolute_url()} width=100>')
         return 'Не загружено'
     get_image_html.short_description = 'Изображение'
 

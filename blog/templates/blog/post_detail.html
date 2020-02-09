@@ -26,7 +26,7 @@
 
     <!-- Preview Image -->
     {% if object.image %}
-      <img class="img-fluid rounded" src="{{ object.image.url }}" alt="{{ object.title }}">
+      <img class="img-fluid rounded" src="{{ object.get_image_absolute_url }}" alt="{{ object.title }}">
     {% endif %}
 
     <hr>
