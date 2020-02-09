@@ -2,8 +2,8 @@ from datetime import datetime
 
 from django.db import models
 from django.urls import reverse
-from django.utils.text import slugify
 from django.utils.safestring import mark_safe
+from slugify import slugify
 
 from accounts.models import User
 from core.utils import get_filepath
@@ -31,6 +31,11 @@ class Post(models.Model):
     slug = models.SlugField('Slug', max_length=150, unique=True, blank=True)
     text = models.TextField('Текст')
     image = models.ImageField('Изображение', upload_to=get_filepath, null=True, blank=True)
+    STATUS_CHOICE = (
+        ('DRAFT', 'Черновик'),
+        ('PUB', ' Опубликованно'),
+    )
+    status = models.CharField('Статус', default='DRAFT', max_length=5, choices=STATUS_CHOICE)
     created_at = models.DateTimeField('Дата создания', auto_now_add=True)
     tags = models.ManyToManyField('Tag', related_name='posts', blank=True)
     author = models.ForeignKey(
@@ -72,3 +77,8 @@ class Tag(models.Model):
 
     def __str__(self):
         return f'{self.title}'
+
+    def save(self, *args, **kwargs):
+        if self.id is None:
+            self.slug = generation_slug(self.title)
+        super().save(*args, **kwargs)

@@ -17,10 +17,17 @@ class PostAdminForm(forms.ModelForm):
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
     form = PostAdminForm
-    list_display = list_display_links = (
+    list_display_links = (
         'id',
-        'author',
         'created_at',
+        'title',
+        'get_image_html',
+    )
+
+    list_display = (
+        'id',
+        'created_at',
+        'status',
         'title',
         'get_image_html',
     )
@@ -37,7 +44,7 @@ class PostAdmin(admin.ModelAdmin):
         }),
         ('Автор И теги', {
             'classes': ('collapse', ),
-            'fields': (('created_at', 'author', 'tags', ),)
+            'fields': (('created_at', 'author', 'tags', 'status'),)
         }),
     )
 
@@ -50,8 +57,9 @@ class PostAdmin(admin.ModelAdmin):
         'slug'
     )
 
-    list_filter = ('tags', )
+    list_filter = ('tags', 'status', )
 
+    list_editable = ('status', )
     save_on_top = True
 
 

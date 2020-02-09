@@ -5,29 +5,26 @@ from blog.filters import PostFilter
 from blog.models import Post, Tag
 
 
-class PostListView(ListView):
+class TagContextMixin:
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tags'] = Tag.objects.all()
+        return context
+
+
+class PostListView(TagContextMixin, ListView):
     model = Post
     paginate_by = 5
     filter_class = PostFilter
 
     def get_queryset(self):
-        qs = self.model.objects.all()
+        qs = self.model.objects.filter(status='PUB')
         filtered_posts = self.filter_class(self.request.GET, queryset=qs)
         return filtered_posts.qs
 
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['tags'] = Tag.objects.all()
-        return context
 
-
-class PostDetailView(DetailView):
+class PostDetailView(TagContextMixin, DetailView):
     model = Post
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['tags'] = Tag.objects.all()
-        return context
 
 
 class PostCreateView(CreateView):
@@ -44,5 +41,20 @@ class PostCreateView(CreateView):
         return super().form_valid(form)
 
 
-class AboutMeView(TemplateView):
-    template_name = 'blog/about_me.html'
+class AboutMeView(TagContextMixin, TemplateView):
+    template_name = 'blog/post_detail.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['object'] = Post.objects.filter(title='Обо мне')
+        return context
+
+
+class ProjectsView(TagContextMixin, TemplateView):
+    template_name = 'blog/post_detail.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['object'] = Post.objects.filter(title='Проекты')
+        return context
+
