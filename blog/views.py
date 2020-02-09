@@ -46,7 +46,7 @@ class AboutMeView(TagContextMixin, TemplateView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['object'] = Post.objects.filter(title='Обо мне').first()
+        context['object'] = Post.objects.filter(title='Обо мне', status='PUB').first()
         return context
 
 
@@ -55,6 +55,6 @@ class ProjectsView(TagContextMixin, TemplateView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['object'] = Post.objects.filter(title='Проекты').first()
+        context['object'] = Post.objects.filter(title='Проекты', status='PUB').first()
         return context
 
