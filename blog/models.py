@@ -74,7 +74,7 @@ class Post(models.Model):
 
 class Tag(models.Model):
     title = models.CharField('Название', max_length=150)
-    slug = models.CharField('Slug', max_length=150)
+    slug = models.CharField('Slug', max_length=150, blank=True)
 
     class Meta:
         verbose_name = 'Тег'
