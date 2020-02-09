@@ -5,25 +5,29 @@ from blog.filters import PostFilter
 from blog.models import Post, Tag
 
 
-class TagContextMixin:
+class CommonMixin:
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['tags'] = Tag.objects.all()
         return context
 
+    def get_queryset(self):
+        qs = super().get_queryset()
+        return qs.filter(status='PUB')
 
-class PostListView(TagContextMixin, ListView):
+
+class PostListView(CommonMixin, ListView):
     model = Post
     paginate_by = 5
     filter_class = PostFilter
 
     def get_queryset(self):
-        qs = self.model.objects.filter(status='PUB')
+        qs = super().get_queryset()
         filtered_posts = self.filter_class(self.request.GET, queryset=qs)
         return filtered_posts.qs
 
 
-class PostDetailView(TagContextMixin, DetailView):
+class PostDetailView(CommonMixin, DetailView):
     model = Post
 
 
@@ -41,7 +45,7 @@ class PostCreateView(CreateView):
         return super().form_valid(form)
 
 
-class AboutMeView(TagContextMixin, TemplateView):
+class AboutMeView(CommonMixin, TemplateView):
     template_name = 'blog/post_detail.html'
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -50,7 +54,7 @@ class AboutMeView(TagContextMixin, TemplateView):
         return context
 
 
-class ProjectsView(TagContextMixin, TemplateView):
+class ProjectsView(CommonMixin, TemplateView):
     template_name = 'blog/post_detail.html'
 
     def get_context_data(self, *, object_list=None, **kwargs):
