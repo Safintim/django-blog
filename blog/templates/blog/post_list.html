@@ -18,7 +18,7 @@
         {% endif %}
         <div class="card-body">
           <h2 class="card-title">{{ object.title }}</h2>
-          <p class="card-text">{{ object.text|truncatechars:300|safe }}</p>
+          <p class="card-text">{{ object.description|safe }}</p>
           <p>
             {% for tag in object.tags.all %}
               <a href="{% url 'posts-list' %}?tag={{ tag.title }}">#{{ tag.title }}</a>

@@ -29,6 +29,7 @@ def generation_slug(string: str, timestamp: float = 0) -> str:
 
 class Post(models.Model):
     title = models.CharField('Название', max_length=150, db_index=True)
+    description = models.TextField('Описание', null=True, blank=True)
     slug = models.SlugField('Slug', max_length=150, unique=True, blank=True)
     text = models.TextField('Текст')
     image = models.ImageField('Изображение', upload_to=get_filepath, null=True, blank=True)
