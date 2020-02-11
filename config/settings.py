@@ -117,12 +117,14 @@ CKEDITOR_UPLOAD_PATH = 'static/images/'
 
 CKEDITOR_CONFIGS = {
     'default': {
+
         'skin': 'moono',
         # 'skin': 'office2013',
         'toolbar_Basic': [
             ['Source', '-', 'Bold', 'Italic']
         ],
         'toolbar_YourCustomToolbarConfig': [
+            {'name': 'codesnippet', 'items': ['CodeSnippet']},
             {'name': 'document', 'items': ['Source', '-', 'Save', 'NewPage', 'Preview', 'Print', '-', 'Templates']},
             {'name': 'clipboard', 'items': ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo']},
             {'name': 'editing', 'items': ['Find', 'Replace', '-', 'SelectAll']},
@@ -175,7 +177,8 @@ CKEDITOR_CONFIGS = {
             'clipboard',
             'dialog',
             'dialogui',
-            'elementspath'
+            'elementspath',
+            'codesnippet'
         ]),
-    }
+    },
 }

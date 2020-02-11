@@ -40,7 +40,7 @@ class PostAdmin(admin.ModelAdmin):
             'fields': (('image', 'get_image_html'),)
         }),
         (None, {
-            'fields': (('text', ),)
+            'fields': (('description', 'text', ),)
         }),
         ('Автор И теги', {
             'classes': ('collapse', ),
