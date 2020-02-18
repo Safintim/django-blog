@@ -38,7 +38,7 @@ class Post(models.Model):
         ('PUB', ' Опубликованно'),
     )
     status = models.CharField('Статус', default='DRAFT', max_length=5, choices=STATUS_CHOICE)
-    created_at = models.DateTimeField('Дата создания', auto_now_add=True)
+    created_at = models.DateTimeField('Дата создания', null=True, blank=True)
     tags = models.ManyToManyField('Tag', related_name='posts', blank=True)
     author = models.ForeignKey(
         User,
