@@ -48,7 +48,7 @@ class PostAdmin(admin.ModelAdmin):
         }),
     )
 
-    readonly_fields = ('created_at', 'get_image_html', )
+    readonly_fields = ('get_image_html', )
 
     search_fields = (
         'author__email',
