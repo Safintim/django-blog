@@ -7,7 +7,7 @@ authors = ["Timur Safin <timur@getgain.ru>"]
 [tool.poetry.dependencies]
 python = "^3.7"
 django = "^2.2.9"
-Pillow = "^7.0.0"
+Pillow = "^8.1.1"
 django-filter = "^2.2.0"
 django-ckeditor = "^5.9.0"
 uWSGI = "^2.0.18"
